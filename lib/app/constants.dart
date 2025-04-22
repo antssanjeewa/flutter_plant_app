@@ -10,12 +10,12 @@ class AppColors {
 }
 
 /// Tailwind-like Font Sizes
-class FontSize {
+class AppFontSize {
   static const double xs = 12;
   static const double sm = 14;
   static const double base = 16;
   static const double lg = 18;
-  static const double xl = 20;
+  static const double xl = 25;
   static const double xxl = 45;
 }
 
@@ -30,35 +30,39 @@ class AppSize {
 
 class AppTextStyles {
   static const TextStyle body = TextStyle(
-    fontSize: FontSize.base,
+    fontSize: AppFontSize.base,
     fontWeight: FontWeight.normal,
   );
 
   static const TextStyle bodyBold = TextStyle(
-    fontSize: FontSize.base,
+    fontSize: AppFontSize.base,
     fontWeight: FontWeight.bold,
   );
 
-  static const TextStyle heading = TextStyle(fontSize: FontSize.xxl);
+  static const TextStyle heading = TextStyle(fontSize: AppFontSize.xxl);
 
   static const TextStyle headingBold = TextStyle(
-    fontSize: FontSize.xxl,
+    fontSize: AppFontSize.xxl,
     fontWeight: FontWeight.bold,
   );
 
   static const TextStyle subHeading = TextStyle(
-    fontSize: FontSize.lg,
+    fontSize: AppFontSize.lg,
     fontWeight: FontWeight.w500,
   );
 
   static const TextStyle small = TextStyle(
-    fontSize: FontSize.sm,
+    fontSize: AppFontSize.sm,
     fontWeight: FontWeight.normal,
   );
 
   static const TextStyle button = TextStyle(
-    fontSize: FontSize.base,
+    fontSize: AppFontSize.base,
     fontWeight: FontWeight.bold,
     color: Colors.white,
   );
+}
+
+class AppImages {
+  static const String image1 = 'images/image1.png';
 }

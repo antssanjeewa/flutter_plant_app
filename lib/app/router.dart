@@ -1,15 +1,30 @@
 import 'package:go_router/go_router.dart';
 import 'package:plant_app/app/pages.dart';
 import 'package:plant_app/views/main_screen.dart';
+import 'package:plant_app/views/plant_details_page.dart';
+import 'package:plant_app/views/splash_screen.dart';
 
 final GoRouter router = GoRouter(
-  initialLocation: '/',
+  initialLocation: Pages.splash.toPath(),
   routes: [
     //
     GoRoute(
+      name: Pages.splash.toPathName(),
+      path: Pages.splash.toPath(),
+      builder: (context, state) => SplashScreen(),
+    ),
+    GoRoute(
       name: Pages.home.toPathName(),
-      path: '/',
+      path: Pages.home.toPath(),
       builder: (context, state) => MainScreen(),
+    ),
+    GoRoute(
+      name: Pages.plantDetails.toPathName(),
+      path: Pages.plantDetails.toPath(),
+      builder: (context, state) {
+        final image = state.extra as String;
+        return PlantDetailsPage(image: image);
+      },
     ),
   ],
 );
