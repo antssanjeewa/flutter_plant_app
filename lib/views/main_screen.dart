@@ -3,18 +3,14 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plant_app/app/constants.dart';
 import 'package:plant_app/app/pages.dart';
+import 'package:plant_app/data/plant_data.dart';
+import 'package:plant_app/models/plant.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final List<String> imagePaths = [
-      "images/image1.png",
-      "images/image2.png",
-      "images/image3.png",
-    ];
-
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 100,
@@ -42,10 +38,10 @@ class MainScreen extends StatelessWidget {
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.only(right: 15),
+            padding: const EdgeInsets.only(right: 20),
             child: Image.asset(
               "images/profile.png",
-              width: 50,
+              width: 40,
               // color: Colors.white,
             ),
           ),
@@ -120,9 +116,10 @@ class MainScreen extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               mainAxisSpacing: 22,
               crossAxisSpacing: 22,
-              itemCount: imagePaths.length,
+              itemCount: plants.length,
               itemBuilder: (context, index) {
-                return PlantItem(image: imagePaths[index]);
+                final plant = plants[index];
+                return PlantItem(plant: plant);
               },
             ),
           ],
@@ -145,15 +142,15 @@ class MainScreen extends StatelessWidget {
 }
 
 class PlantItem extends StatelessWidget {
-  const PlantItem({super.key, required this.image});
+  const PlantItem({super.key, required this.plant});
 
-  final String image;
+  final Plant plant;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.pushNamed(Pages.plantDetails.toPathName(), extra: image);
+        context.pushNamed(Pages.plantDetails.toPathName(), extra: plant);
       },
       child: Container(
         padding: const EdgeInsets.all(15),
@@ -183,8 +180,8 @@ class PlantItem extends StatelessWidget {
                 ),
                 Center(
                   child: Hero(
-                    tag: image,
-                    child: Image.asset(image, fit: BoxFit.cover),
+                    tag: plant.image,
+                    child: Image.asset(plant.image, fit: BoxFit.cover),
                   ),
                 ),
                 GestureDetector(
@@ -204,26 +201,17 @@ class PlantItem extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 5),
-            const Text(
-              "Coconut",
-              style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+            Text(
+              plant.name,
+              style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  "Rs. 23.34",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
-                ),
-                Container(
-                  padding: const EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.grey,
-                  ),
-                  child: const Icon(Icons.add, color: Colors.white),
-                ),
-              ],
+            Text(
+              plant.scientificName,
+              style: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                color: Colors.blue,
+              ),
             ),
           ],
         ),

@@ -1,24 +1,59 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:plant_app/app/constants.dart';
 import 'package:plant_app/app/pages.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  int _countdown = 3;
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _startCountdown();
+  }
+
+  void _startCountdown() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_countdown == 1) {
+        _skip();
+      } else {
+        setState(() {
+          _countdown--;
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  void _skip() {
+    _timer?.cancel();
+    Pages.home.go(context);
+  }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    Future.delayed(Duration(seconds: 3), () {
-      Pages.home.go(context);
-    });
-
     return Scaffold(
       appBar: AppBar(
         actions: [
           TextButton(
-            onPressed: () {},
-            child: Text("skip", style: AppTextStyles.bodyBold),
+            onPressed: _skip,
+            child: Text("Skip ($_countdown)", style: AppTextStyles.bodyBold),
           ),
         ],
       ),
@@ -29,9 +64,9 @@ class SplashScreen extends StatelessWidget {
               height: size.height / 1.8,
               child: Image.asset(AppImages.image1),
             ),
-            SizedBox(height: AppSize.base),
+            const SizedBox(height: AppSize.base),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: AppSize.lg),
+              padding: const EdgeInsets.symmetric(horizontal: AppSize.lg),
               child: RichText(
                 text: TextSpan(
                   style: Theme.of(context).textTheme.headlineMedium,
@@ -42,7 +77,10 @@ class SplashScreen extends StatelessWidget {
                         fontWeight: FontWeight.w300,
                       ),
                     ),
-                    TextSpan(text: " Plants", style: AppTextStyles.headingBold),
+                    const TextSpan(
+                      text: " Plants",
+                      style: AppTextStyles.headingBold,
+                    ),
                   ],
                 ),
                 textAlign: TextAlign.center,

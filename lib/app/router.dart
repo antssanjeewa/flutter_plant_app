@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:plant_app/app/pages.dart';
+import 'package:plant_app/models/plant.dart';
 import 'package:plant_app/views/main_screen.dart';
 import 'package:plant_app/views/plant_details_page.dart';
 import 'package:plant_app/views/splash_screen.dart';
@@ -22,8 +23,8 @@ final GoRouter router = GoRouter(
       name: Pages.plantDetails.toPathName(),
       path: Pages.plantDetails.toPath(),
       builder: (context, state) {
-        final image = state.extra as String;
-        return PlantDetailsPage(image: image);
+        final plant = state.extra as Plant;
+        return PlantDetailsPage(plant: plant);
       },
     ),
   ],
