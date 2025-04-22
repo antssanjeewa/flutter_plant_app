@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plant_app/models/plant.dart';
+import 'package:readmore/readmore.dart';
 
 class PlantDetailsPage extends StatelessWidget {
   final Plant plant;
@@ -11,8 +12,8 @@ class PlantDetailsPage extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          Container(
-            height: MediaQuery.of(context).size.height * 0.6,
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.5,
             width: double.infinity,
             child: Stack(
               children: [
@@ -46,7 +47,7 @@ class PlantDetailsPage extends StatelessWidget {
           SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: MediaQuery.of(context).size.height * 0.6 + 15),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.5 + 15),
                 Container(
                   padding: const EdgeInsets.only(top: 28, left: 18),
                   decoration: BoxDecoration(
@@ -81,13 +82,28 @@ class PlantDetailsPage extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            plant.name,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 30,
-                            ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                plant.name,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 30,
+                                ),
+                              ),
+                              Text(
+                                plant.scientificName,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.green,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              ),
+                            ],
                           ),
+
                           Container(
                             padding: const EdgeInsets.symmetric(
                               vertical: 10,
@@ -112,23 +128,69 @@ class PlantDetailsPage extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 25),
-                      const Text(
-                        "About",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 22,
-                        ),
-                      ),
-                      const SizedBox(height: 10),
                       Padding(
                         padding: const EdgeInsets.only(right: 15),
-                        child: Text(
+                        child: ReadMoreText(
                           plant.description,
-                          style: const TextStyle(fontSize: 16),
+                          trimLines: 3,
+                          trimMode: TrimMode.Line,
+                          trimExpandedText: "Less",
+                          trimCollapsedText: "read More",
+                          moreStyle: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue,
+                          ),
+                          lessStyle: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue,
+                          ),
                         ),
                       ),
                       const SizedBox(height: 40),
 
+                      PlantInfoRow(label: "Family", value: plant.family ?? '-'),
+                      PlantInfoRow(label: "Origin", value: plant.region ?? '-'),
+                      PlantInfoRow(
+                        label: "Lifetime",
+                        value: plant.lifetime ?? '-',
+                      ),
+                      PlantInfoRow(
+                        label: "Environment",
+                        value: plant.environment ?? '-',
+                      ),
+                      PlantInfoRow(
+                        label: "Propagation",
+                        value: plant.propagationMethod ?? '-',
+                      ),
+                      const SizedBox(height: 40),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          _InfoIcon(
+                            icon: Icons.straighten,
+                            label: "Size",
+                            value: plant.size ?? '-',
+                          ),
+                          _InfoIcon(
+                            icon: Icons.wb_sunny,
+                            label: "Light",
+                            value: plant.light ?? '-',
+                          ),
+                          _InfoIcon(
+                            icon: Icons.water_drop,
+                            label: "Humidity",
+                            value: plant.humidity ?? '-',
+                          ),
+                          _InfoIcon(
+                            icon: Icons.height,
+                            label: "Height",
+                            value: plant.height ?? '-',
+                          ),
+                        ],
+                      ),
                       const SizedBox(height: 40),
                     ],
                   ),
@@ -155,6 +217,67 @@ class PlantDetailsPage extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Column _InfoIcon({
+    required IconData icon,
+    required String value,
+    required String label,
+  }) {
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(10),
+          decoration: const BoxDecoration(
+            color: Color(0xFFDFF5E1),
+            shape: BoxShape.circle,
+          ),
+          child: Icon(icon, size: 24, color: Colors.green),
+        ),
+        const SizedBox(height: 6),
+        Text(
+          value,
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+        ),
+        Text(
+          label,
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+        ),
+      ],
+    );
+  }
+
+  Column PlantInfoRow({required String label, required String value}) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                width: 100,
+                child: Text(
+                  label,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w500,
+                    color: Colors.grey,
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  value,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+            ],
+          ),
+        ),
+        Divider(height: 1, thickness: 1, color: Colors.grey.shade300),
+      ],
     );
   }
 }

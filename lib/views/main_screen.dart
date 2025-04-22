@@ -184,20 +184,20 @@ class PlantItem extends StatelessWidget {
                     child: Image.asset(plant.image, fit: BoxFit.cover),
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {},
-                  child: Align(
-                    alignment: Alignment.topRight,
-                    child: Container(
-                      padding: const EdgeInsets.all(6),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        color: Colors.grey.shade300,
-                      ),
-                      child: const Icon(Icons.favorite),
-                    ),
-                  ),
-                ),
+                // GestureDetector(
+                //   onTap: () {},
+                //   child: Align(
+                //     alignment: Alignment.topRight,
+                //     child: Container(
+                //       padding: const EdgeInsets.all(6),
+                //       decoration: BoxDecoration(
+                //         borderRadius: BorderRadius.circular(50),
+                //         color: Colors.grey.shade300,
+                //       ),
+                //       child: const Icon(Icons.favorite),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
             const SizedBox(height: 5),
@@ -208,9 +208,10 @@ class PlantItem extends StatelessWidget {
             Text(
               plant.scientificName,
               style: const TextStyle(
-                fontSize: 12,
+                fontSize: 14,
                 fontWeight: FontWeight.w700,
-                color: Colors.blue,
+                color: Colors.green,
+                fontStyle: FontStyle.italic,
               ),
             ),
           ],
