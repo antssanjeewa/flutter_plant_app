@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:plant_app/app/constants.dart';
 import 'package:plant_app/models/plant.dart';
 import 'package:readmore/readmore.dart';
 
@@ -24,7 +25,7 @@ class PlantDetailsPage extends StatelessWidget {
                       height: 65,
                       width: 400,
                       decoration: BoxDecoration(
-                        color: Colors.grey.shade200,
+                        color: Theme.of(context).colorScheme.secondary,
                         borderRadius: const BorderRadius.all(
                           Radius.elliptical(400, 65),
                         ),
@@ -51,7 +52,7 @@ class PlantDetailsPage extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.only(top: 28, left: 18),
                   decoration: BoxDecoration(
-                    color: Colors.grey.shade100,
+                    color: Theme.of(context).colorScheme.surface,
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(30),
@@ -60,19 +61,25 @@ class PlantDetailsPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Row(
+                      Row(
                         children: [
                           SizedBox(
                             width: 15,
-                            child: Divider(thickness: 3, color: Colors.green),
+                            child: Divider(
+                              thickness: 3,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
                           ),
-                          SizedBox(width: 2),
+                          const SizedBox(width: 2),
                           SizedBox(
                             width: 35,
-                            child: Divider(thickness: 3, color: Colors.green),
+                            child: Divider(
+                              thickness: 3,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
                           ),
-                          SizedBox(width: 10),
-                          Text(
+                          const SizedBox(width: 10),
+                          const Text(
                             "Best Choice",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
@@ -94,10 +101,10 @@ class PlantDetailsPage extends StatelessWidget {
                               ),
                               Text(
                                 plant.scientificName,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w700,
-                                  color: Colors.green,
+                                  color: Theme.of(context).colorScheme.primary,
                                   fontStyle: FontStyle.italic,
                                 ),
                               ),
@@ -109,8 +116,8 @@ class PlantDetailsPage extends StatelessWidget {
                               vertical: 10,
                               horizontal: 15,
                             ),
-                            decoration: const BoxDecoration(
-                              color: Colors.green,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.primary,
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(30),
                                 bottomLeft: Radius.circular(30),
@@ -118,10 +125,10 @@ class PlantDetailsPage extends StatelessWidget {
                             ),
                             child: Text(
                               plant.category,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,
-                                color: Colors.white,
+                                color: Theme.of(context).colorScheme.onPrimary,
                               ),
                             ),
                           ),
@@ -136,15 +143,15 @@ class PlantDetailsPage extends StatelessWidget {
                           trimMode: TrimMode.Line,
                           trimExpandedText: "Less",
                           trimCollapsedText: "read More",
-                          moreStyle: const TextStyle(
+                          moreStyle: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
-                            color: Colors.blue,
+                            color: Theme.of(context).colorScheme.primary,
                           ),
-                          lessStyle: const TextStyle(
+                          lessStyle: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
-                            color: Colors.blue,
+                            color: Theme.of(context).colorScheme.primary,
                           ),
                         ),
                       ),
@@ -169,25 +176,25 @@ class PlantDetailsPage extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          _InfoIcon(
+                          InfoWithIcon(
                             icon: Icons.straighten,
-                            label: "Size",
-                            value: plant.size ?? '-',
+                            value: "Size",
+                            label: plant.size ?? '-',
                           ),
-                          _InfoIcon(
+                          InfoWithIcon(
                             icon: Icons.wb_sunny,
-                            label: "Light",
-                            value: plant.light ?? '-',
+                            value: "Light",
+                            label: plant.light ?? '-',
                           ),
-                          _InfoIcon(
+                          InfoWithIcon(
                             icon: Icons.water_drop,
-                            label: "Humidity",
-                            value: plant.humidity ?? '-',
+                            value: "Humidity",
+                            label: plant.humidity ?? '-',
                           ),
-                          _InfoIcon(
+                          InfoWithIcon(
                             icon: Icons.height,
-                            label: "Height",
-                            value: plant.height ?? '-',
+                            value: "Height",
+                            label: plant.height ?? '-',
                           ),
                         ],
                       ),
@@ -219,37 +226,16 @@ class PlantDetailsPage extends StatelessWidget {
       ),
     );
   }
+}
 
-  Column _InfoIcon({
-    required IconData icon,
-    required String value,
-    required String label,
-  }) {
-    return Column(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(10),
-          decoration: const BoxDecoration(
-            color: Color(0xFFDFF5E1),
-            shape: BoxShape.circle,
-          ),
-          child: Icon(icon, size: 24, color: Colors.green),
-        ),
-        const SizedBox(height: 6),
-        Text(
-          value,
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-        ),
-        Text(
-          label,
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
-        ),
-      ],
-    );
-  }
+class PlantInfoRow extends StatelessWidget {
+  const PlantInfoRow({super.key, required this.label, required this.value});
 
-  Column PlantInfoRow({required String label, required String value}) {
+  final String label;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       children: [
         Padding(
@@ -263,7 +249,7 @@ class PlantDetailsPage extends StatelessWidget {
                   label,
                   style: const TextStyle(
                     fontWeight: FontWeight.w500,
-                    color: Colors.grey,
+                    color: AppColors.grey,
                   ),
                 ),
               ),
@@ -276,7 +262,53 @@ class PlantDetailsPage extends StatelessWidget {
             ],
           ),
         ),
-        Divider(height: 1, thickness: 1, color: Colors.grey.shade300),
+        Divider(height: 1, thickness: 1, color: Theme.of(context).dividerColor),
+      ],
+    );
+  }
+}
+
+class InfoWithIcon extends StatelessWidget {
+  const InfoWithIcon({
+    super.key,
+    required this.icon,
+    required this.value,
+    required this.label,
+  });
+
+  final IconData icon;
+  final String value;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.primaryContainer,
+            shape: BoxShape.circle,
+          ),
+          child: Icon(
+            icon,
+            size: 24,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+        ),
+        const SizedBox(height: 6),
+        Text(
+          value,
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+        ),
+        Text(
+          label,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 11,
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
+        ),
       ],
     );
   }

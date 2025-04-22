@@ -14,24 +14,24 @@ class MainScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 100,
-        title: const Column(
+        title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 10),
-            Text(
+            const SizedBox(height: 10),
+            const Text(
               "Welcome to",
               style: TextStyle(
                 fontSize: AppFontSize.xl,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
               "Plant Guide",
               style: TextStyle(
                 fontSize: 35,
                 fontWeight: FontWeight.bold,
-                color: Colors.green,
+                color: Theme.of(context).colorScheme.primary,
               ),
             ),
           ],
@@ -42,7 +42,7 @@ class MainScreen extends StatelessWidget {
             child: Image.asset(
               "images/profile.png",
               width: 40,
-              // color: Colors.white,
+              color: Theme.of(context).colorScheme.onSurface,
             ),
           ),
         ],
@@ -65,12 +65,12 @@ class MainScreen extends StatelessWidget {
                           borderSide: BorderSide.none,
                         ),
                         filled: true,
-                        fillColor: Colors.grey.shade100,
+                        fillColor: Theme.of(context).colorScheme.surface,
                         hintText: "Search...",
                         hintStyle: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
-                          color: Colors.grey,
+                          color: AppColors.grey,
                         ),
                         contentPadding: const EdgeInsets.symmetric(
                           horizontal: 40,
@@ -86,7 +86,7 @@ class MainScreen extends StatelessWidget {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
-                        color: Colors.grey.shade100,
+                        color: Theme.of(context).colorScheme.surface,
                       ),
                       padding: const EdgeInsets.symmetric(vertical: 15),
                       child: const RotatedBox(
@@ -122,6 +122,7 @@ class MainScreen extends StatelessWidget {
                 return PlantItem(plant: plant);
               },
             ),
+            const SizedBox(height: 40),
           ],
         ),
       ),
@@ -129,6 +130,7 @@ class MainScreen extends StatelessWidget {
         showSelectedLabels: false,
         showUnselectedLabels: false,
         iconSize: 30,
+        elevation: 0,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(
@@ -156,7 +158,7 @@ class PlantItem extends StatelessWidget {
         padding: const EdgeInsets.all(15),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
-          color: Colors.grey.shade200,
+          color: Theme.of(context).colorScheme.surface,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -167,12 +169,12 @@ class PlantItem extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.bottomCenter,
                     child: Container(
-                      height: 20,
-                      width: 90,
+                      height: 25,
+                      width: 160,
                       decoration: BoxDecoration(
-                        color: Colors.grey.shade300,
+                        color: Theme.of(context).colorScheme.secondary,
                         borderRadius: const BorderRadius.all(
-                          Radius.elliptical(100, 25),
+                          Radius.elliptical(160, 25),
                         ),
                       ),
                     ),
@@ -192,7 +194,7 @@ class PlantItem extends StatelessWidget {
                 //       padding: const EdgeInsets.all(6),
                 //       decoration: BoxDecoration(
                 //         borderRadius: BorderRadius.circular(50),
-                //         color: Colors.grey.shade300,
+                //         color: AppColors.grey.shade300,
                 //       ),
                 //       child: const Icon(Icons.favorite),
                 //     ),
@@ -207,10 +209,10 @@ class PlantItem extends StatelessWidget {
             ),
             Text(
               plant.scientificName,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w700,
-                color: Colors.green,
+                color: Theme.of(context).colorScheme.primary,
                 fontStyle: FontStyle.italic,
               ),
             ),
@@ -234,7 +236,10 @@ class CategoryItem extends StatelessWidget {
         Text(
           name,
           style: TextStyle(
-            color: isActive ? Colors.green : Colors.grey,
+            color:
+                isActive
+                    ? Theme.of(context).colorScheme.primary
+                    : AppColors.grey,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -245,7 +250,7 @@ class CategoryItem extends StatelessWidget {
           decoration:
               isActive
                   ? BoxDecoration(
-                    color: Colors.green,
+                    color: Theme.of(context).colorScheme.primary,
                     borderRadius: BorderRadius.circular(10),
                   )
                   : const BoxDecoration(),
