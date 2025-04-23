@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-enum Pages { splash, home, plantDetails }
+enum Pages { splash, home, favorite, setting, plantDetails }
 
 extension PagesExtension on Pages {
   String toPath({bool isSubRoute = false}) {

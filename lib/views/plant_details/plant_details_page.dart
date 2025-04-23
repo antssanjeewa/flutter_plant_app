@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:readmore/readmore.dart';
 import 'package:go_router/go_router.dart';
-import 'package:plant_app/app/constants.dart';
 import 'package:plant_app/models/plant.dart';
+import 'package:plant_app/app/constants.dart';
+import 'package:plant_app/views/widgets/shadow_image.dart';
 import 'package:plant_app/views/plant_details/widgets/info_with_icon.dart';
 import 'package:plant_app/views/plant_details/widgets/plant_info_row.dart';
-import 'package:plant_app/views/widgets/shadow_image.dart';
-import 'package:readmore/readmore.dart';
 
 class PlantDetailsPage extends StatelessWidget {
   final Plant plant;
