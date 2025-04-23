@@ -17,13 +17,14 @@ class AppFontSize {
   static const double lg = 18;
   static const double xl = 25;
   static const double xxl = 45;
+  static const double heading = 35;
 }
 
 /// Spacing
 class AppSize {
-  static const double xs = 10;
-  static const double sm = 15;
-  static const double base = 20;
+  static const double xs = 5;
+  static const double sm = 10;
+  static const double base = 15;
   static const double lg = 30;
   static const double xl = 40;
 }
@@ -65,4 +66,5 @@ class AppTextStyles {
 
 class AppImages {
   static const String image1 = 'images/image1.png';
+  static const String avatar = 'images/profile.png';
 }
